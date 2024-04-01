@@ -1,0 +1,3 @@
+[submodule "ext/libwhirlwind"]
+	path = ext/libwhirlwind
+	url = git@github.com:gmgunter/libwhirlwind.git
