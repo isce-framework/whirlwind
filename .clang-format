@@ -1,0 +1,60 @@
+Language: Cpp
+BasedOnStyle: LLVM
+
+# Line length
+ColumnLimit: 88
+
+# Indentation
+IndentWidth: 4
+TabWidth: 4
+ContinuationIndentWidth: 8
+AccessModifierOffset: -4
+
+# Includes
+SortIncludes: true
+IncludeBlocks: Regroup
+IncludeCategories:
+  # Local headers
+  - Regex: '"[\w\/-_]*"'
+    Priority: 4
+  # First-party headers
+  - Regex: "<whirlwind/.*>"
+    Priority: 3
+  # Third-party headers
+  - Regex: '<[\w\/-_]+[\.\/][\w\/-_]+>'
+    Priority: 2
+  # Standard headers
+  - Regex: '<[\w\/-_]+>'
+    Priority: 1
+
+# Line breaks
+AlwaysBreakTemplateDeclarations: Yes
+AlwaysBreakAfterReturnType: All
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+BinPackParameters: false
+
+# Braces
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel: false
+  AfterClass: false
+  AfterControlStatement: Never
+  AfterEnum: false
+  AfterFunction: true
+  AfterNamespace: false
+  AfterStruct: false
+  AfterUnion: false
+  BeforeCatch: false
+  BeforeElse: false
+  BeforeLambdaBody: false
+  BeforeWhile: false
+  SplitEmptyFunction: false
+  SplitEmptyNamespace: true
+  SplitEmptyRecord: false
+
+# Spaces
+SpaceAfterTemplateKeyword: false
+PointerAlignment: Left
+
+# Misc
+AllowShortCaseLabelsOnASingleLine: true

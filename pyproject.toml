@@ -1,0 +1,106 @@
+[build-system]
+requires = ["scikit-build-core", "nanobind"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "whirlwind"
+requires-python = ">=3.9"
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = ["pre-commit"]
+test = ["pytest>=6", "pytest-cov>=3"]
+
+[tool.black]
+preview = true
+
+[tool.mypy]
+enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
+python_version = "3.9"
+strict = true
+warn_unused_configs = true
+
+[[tool.mypy.overrides]]
+module = "test.*"
+disable_error_code = ["misc", "no-untyped-def"]
+
+[tool.numpydoc_validation]
+checks = [
+  "all",
+  "ES01", # No extended summary found
+  "EX01", # No examples section found
+  "SA01", # See Also section not found
+]
+exclude = ['^__\S+__$', '^test_\S+$']
+override_SS05 = ['^\S+ss ']
+
+[tool.pytest.ini_options]
+addopts = [
+  "-ra",
+  "--showlocals",
+  "--strict-markers",
+  "--strict-config",
+  "--cov=whirlwind",
+]
+filterwarnings = ["error"]
+log_cli_level = "INFO"
+minversion = "6"
+testpaths = ["test"]
+xfail_strict = true
+
+[tool.ruff]
+src = ["src"]
+
+[tool.ruff.lint]
+select = [
+  "A",   # flake8-builtins
+  "ARG", # flake8-unused-arguments
+  "B",   # flake8-bugbear
+  "C4",  # flake8-comprehensions
+  "D",   # pydocstyle
+  "E",   # pycodestyle (errors)
+  "EM",  # flake8-errmsg
+  "EXE", # flake8-executable
+  "F",   # Pyflakes
+  "FBT", # flake8-boolean-trap
+  "I",   # isort
+  "ISC", # flake8-implicit-str-concat
+  "N",   # pep8-naming
+  "PGH", # pygrep-hooks
+  "PIE", # flake8-pie
+  "PL",  # Pylint
+  "PT",  # flake8-pytest-style
+  "PTH", # flake8-use-pathlib
+  "PYI", # flake8-pyi
+  "RET", # flake8-return
+  "RUF", # Ruff-specific rules
+  "SIM", # flake8-simplify
+  "SLF", # flake8-self
+  "TRY", # tryceratops
+  "UP",  # pyupgrade
+  "W",   # pycodestyle (warnings)
+  "YTT", # flake8-2020
+]
+ignore = [
+  "D100", # Missing docstring in public module
+  "D104", # Missing docstring in public package
+  "D105", # Missing docstring in magic method
+  "PLR",  # Pylint Refactor
+]
+
+[tool.ruff.lint.flake8-pytest-style]
+fixture-parentheses = false
+mark-parentheses = false
+
+[tool.ruff.lint.per-file-ignores]
+"test/**" = ["D"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.scikit-build]
+metadata.version.provider = "scikit_build_core.metadata.setuptools_scm"
+sdist.include = ["src/whirlwind/_version.py"]
+
+[tool.setuptools_scm]
+version_file = "src/whirlwind/_version.py"
