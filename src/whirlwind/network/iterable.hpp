@@ -1,5 +1,7 @@
 #pragma once
 
+#include <utility>
+
 #include <nanobind/make_iterator.h>
 #include <nanobind/nanobind.h>
 
@@ -16,17 +18,18 @@ common_iterable_attrs_and_methods(nb::class_<Range>& cls)
     // Dunder methods.
     cls.def(
             "__iter__",
-            [](const Range& self) {
+            [](Range& self) {
                 return nb::make_iterator(nb::type<Range>(), "_Iterator", self);
             },
-            nb::keep_alive<0, 1>{});
+            nb::keep_alive<0, 1>());
 }
 
 template<class Range>
 auto
 iterator_value_type(nb::class_<Range>& cls)
 {
-    return nb::class_<ranges::value_type<Range>>(cls, "_Value");
+    using range_value_type = remove_cvref_t<decltype(*std::declval<Range>().begin())>;
+    return nb::class_<range_value_type>(cls, "_Value");
 }
 
 } // namespace whirlwind::bindings

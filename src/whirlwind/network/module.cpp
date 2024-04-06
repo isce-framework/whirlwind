@@ -12,6 +12,7 @@ namespace nb = nanobind;
 // clang-format off
 void csr_graph(nb::module_&);
 void edge_list(nb::module_&);
+void rectangular_grid_graph(nb::module_&);
 // clang-format on
 
 } // namespace whirlwind::bindings
@@ -27,4 +28,5 @@ NB_MODULE(_lib, m)
 
     whirlwind::bindings::edge_list(m);
     whirlwind::bindings::csr_graph(m);
+    whirlwind::bindings::rectangular_grid_graph(m);
 }
