@@ -11,6 +11,7 @@ namespace nb = nanobind;
 
 // clang-format off
 void csr_graph(nb::module_&);
+void dijkstra(nb::module_&);
 void edge_list(nb::module_&);
 void forest(nb::module_&);
 void rectangular_grid_graph(nb::module_&);
@@ -31,4 +32,5 @@ NB_MODULE(_lib, m)
     whirlwind::bindings::csr_graph(m);
     whirlwind::bindings::rectangular_grid_graph(m);
     whirlwind::bindings::forest(m);
+    whirlwind::bindings::dijkstra(m);
 }
