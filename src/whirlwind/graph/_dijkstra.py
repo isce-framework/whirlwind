@@ -1,6 +1,6 @@
 import enum
-from typing import Generic, TypeVar
 from collections.abc import Iterable
+from typing import Generic, TypeVar
 
 from . import _lib
 from ._forest import Forest
@@ -23,18 +23,18 @@ class DistanceType(enum.Enum):
     REAL = enum.auto()
 
 
-def _make_dijkstra_impl(graph, distance_type):
+def _make_dijkstra_impl(graph, distance_type):  # type: ignore[no-untyped-def]
     if distance_type == DistanceType.REAL:
-        return _lib.Dijkstra(graph._impl, float())
+        return _lib.Dijkstra(graph._impl, float())  # noqa: UP018
     if distance_type == DistanceType.INT:
-        return _lib.Dijkstra(graph._impl, int())
+        return _lib.Dijkstra(graph._impl, int())  # noqa: UP018
     raise ValueError
 
 
 class Dijkstra(Forest, Generic[Graph, Distance]):
 
     def __init__(self, graph: Graph, distance_type: DistanceType = DistanceType.REAL):
-        self._impl = _make_dijkstra_impl(graph, distance_type)
+        self._impl = _make_dijkstra_impl(graph, distance_type)  # type: ignore[no-untyped-call]
         self._distance_type = distance_type
 
     @property
@@ -74,5 +74,7 @@ class Dijkstra(Forest, Generic[Graph, Distance]):
     def visit_vertex(self, vertex: Vertex, distance: Distance) -> None:
         self._impl.visit_vertex(vertex, distance)
 
-    def relax_edge(self, edge: Edge, tail: Vertex, head: Vertex, distance: Distance) -> None:
+    def relax_edge(
+        self, edge: Edge, tail: Vertex, head: Vertex, distance: Distance
+    ) -> None:
         self._impl.relax_edge(edge=edge, tail=tail, head=head, distance=distance)

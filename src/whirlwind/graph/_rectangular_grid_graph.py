@@ -7,6 +7,14 @@ __all__ = [
 ]
 
 
+def _make_rectangular_grid_graph_impl(num_rows, num_cols, num_parallel_edges):  # type: ignore[no-untyped-def]
+    if num_parallel_edges == 1:
+        return _lib.RectangularGridGraph__1(num_rows=num_rows, num_cols=num_cols)
+    if num_parallel_edges == 2:
+        return _lib.RectangularGridGraph__2(num_rows=num_rows, num_cols=num_cols)
+    raise ValueError
+
+
 class RectangularGridGraph:
     """
     A 2-dimensional rectangular grid graph.
@@ -20,7 +28,7 @@ class RectangularGridGraph:
     Vertex = tuple[int, int]
     Edge = int
 
-    def __init__(self, num_rows: int, num_cols: int):
+    def __init__(self, num_rows: int, num_cols: int, num_parallel_edges: int = 1):
         """
         Create a new `RectangularGridGraph`.
 
@@ -30,8 +38,18 @@ class RectangularGridGraph:
             The number of rows in the 2-D array of vertices.
         num_cols : int
             The number of columns in the 2-D array of vertices.
+        num_parallel_edges : int, optional
+            The number of parallel edges between adjacent vertices in the graph. Must be
+            1 or 2. Defaults to 1.
         """
-        self._impl = _lib.RectangularGridGraph(num_rows=num_rows, num_cols=num_cols)
+        self._impl = _make_rectangular_grid_graph_impl(
+            num_rows, num_cols, num_parallel_edges
+        )  # type: ignore[no-untyped-call]
+
+    @property
+    def num_parallel_edges(self) -> int:
+        """int : The number of parallel edges between adjacent vertices in the graph."""  # noqa: D403
+        return self._impl.num_parallel_edges
 
     @property
     def num_rows(self) -> int:
