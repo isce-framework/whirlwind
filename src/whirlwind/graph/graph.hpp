@@ -1,11 +1,10 @@
 #pragma once
 
-#include <tuple>
-#include <utility>
-
 #include <nanobind/nanobind.h>
 
 #include <whirlwind/graph/graph_traits.hpp>
+
+#include "iterable.hpp"
 
 namespace whirlwind::bindings {
 
@@ -120,12 +119,24 @@ auto
 graph_member_types(nb::class_<Graph>& cls)
 {
     using Traits = GraphTraits<Graph>;
-    auto vertices = nb::class_<typename Traits::vertices_type>(cls, "_Vertices");
-    auto edges = nb::class_<typename Traits::edges_type>(cls, "_Edges");
-    auto outgoing_edges =
-            nb::class_<typename Traits::outgoing_edges_type>(cls, "_OutgoingEdges");
+    using Vertices = Traits::vertices_type;
+    using Edges = Traits::edges_type;
+    using OutgoingEdges = Traits::outgoing_edges_type;
 
-    return std::tuple(std::move(vertices), std::move(edges), std::move(outgoing_edges));
+    if (!nb::type<Vertices>().is_valid()) {
+        auto vertices = nb::class_<Vertices>(cls, "_Vertices");
+        common_iterable_attrs_and_methods(vertices);
+    }
+
+    if (!nb::type<Edges>().is_valid()) {
+        auto edges = nb::class_<Edges>(cls, "_Edges");
+        common_iterable_attrs_and_methods(edges);
+    }
+
+    if (!nb::type<OutgoingEdges>().is_valid()) {
+        auto outgoing_edges = nb::class_<OutgoingEdges>(cls, "_OutgoingEdges");
+        common_iterable_attrs_and_methods(outgoing_edges);
+    }
 }
 
 } // namespace whirlwind::bindings

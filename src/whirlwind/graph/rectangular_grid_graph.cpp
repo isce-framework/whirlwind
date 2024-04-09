@@ -1,10 +1,8 @@
 #include <nanobind/nanobind.h>
-#include <nanobind/stl/pair.h>
 
 #include <whirlwind/graph/rectangular_grid_graph.hpp>
 
 #include "graph.hpp"
-#include "iterable.hpp"
 
 namespace whirlwind::bindings {
 
@@ -50,12 +48,8 @@ void
 rectangular_grid_graph(nb::module_& m)
 {
     auto graph = nb::class_<RectangularGridGraph<>>(m, "RectangularGridGraph");
-    auto [vertices, edges, outgoing_edges] = graph_member_types(graph);
-
     rectangular_grid_graph_attrs_and_methods(graph);
-    common_iterable_attrs_and_methods(vertices);
-    common_iterable_attrs_and_methods(edges);
-    common_iterable_attrs_and_methods(outgoing_edges);
+    graph_member_types(graph);
 }
 
 } // namespace whirlwind::bindings
