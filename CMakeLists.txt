@@ -24,4 +24,4 @@ find_package(
 )
 find_package(nanobind CONFIG REQUIRED)
 
-add_subdirectory(src/whirlwind/graph)
+add_subdirectory(src/whirlwind/graph/_lib)
