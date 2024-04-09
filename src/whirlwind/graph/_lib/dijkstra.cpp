@@ -21,15 +21,15 @@ dijkstra_attrs_and_methods(nb::class_<Class, Extra...>& cls)
     using Graph = typename Class::graph_type;
 
     // Constructors.
-    cls.def(nb::init<const Graph&>(), "graph"_a);
+    cls.def(nb::init<const Graph&>(), "graph"_a, nb::keep_alive<1, 2>());
 
     // Methods.
     cls.def("has_reached_vertex", &Class::has_reached_vertex, "vertex"_a);
     cls.def("has_visited_vertex", &Class::has_visited_vertex, "vertex"_a);
     cls.def("label_vertex_reached", &Class::label_vertex_reached, "vertex"_a);
     cls.def("label_vertex_visited", &Class::label_vertex_visited, "vertex"_a);
-    cls.def("reached_vertices", &Class::reached_vertices);
-    cls.def("visited_vertices", &Class::reached_vertices);
+    cls.def("reached_vertices", &Class::reached_vertices, nb::keep_alive<0, 1>());
+    cls.def("visited_vertices", &Class::reached_vertices, nb::keep_alive<0, 1>());
     cls.def("distance_to_vertex", &Class::distance_to_vertex, "vertex"_a);
     cls.def("set_distance_to_vertex", &Class::set_distance_to_vertex, "vertex"_a,
             "distance"_a);
@@ -67,6 +67,8 @@ dijkstra_inst(nb::module_& m, const char* name)
                 nb::class_<VisitedVertices>(dijkstra, "_VisitedVertices");
         common_iterable_attrs_and_methods(visited_vertices);
     }
+
+    m.def("Dijkstra", [](const Graph& graph, Distance) { return Class(graph); });
 }
 
 void

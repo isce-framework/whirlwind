@@ -1,7 +1,14 @@
-from ._lib import CSRGraph, EdgeList, RectangularGridGraph
+from ._csr_graph import CSRGraph
+from ._dijkstra import Dijkstra, DistanceType
+from ._edge_list import EdgeList
+from ._forest import Forest
+from ._rectangular_grid_graph import RectangularGridGraph
 
 __all__ = [
     "CSRGraph",
+    "Dijkstra",
+    "DistanceType",
     "EdgeList",
+    "Forest",
     "RectangularGridGraph",
 ]

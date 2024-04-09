@@ -18,11 +18,9 @@ csr_graph_attrs_and_methods(nb::class_<CSRGraph<Container>>& cls)
     using Vertex = typename GraphTraits<CSRGraph<Container>>::vertex_type;
 
     // Constructors.
-    cls.def(nb::init<>(), "Default constructor. Creates an empty `CSRGraph` with no"
-                          " vertices or edges.");
-    cls.def(nb::init<EdgeList<Vertex>>(), nb::call_guard<nb::gil_scoped_release>(),
-            "edge_list"_a,
-            "Create a new `CSRGraph` from a sequence of (tail,head) pairs.");
+    cls.def(nb::init<>());
+    cls.def(nb::init<EdgeList<Vertex>>(), "edge_list"_a,
+            nb::call_guard<nb::gil_scoped_release>());
 
     common_graph_attrs_and_methods(cls);
 }
