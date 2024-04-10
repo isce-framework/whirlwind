@@ -30,7 +30,6 @@ csr_graph(nb::module_& m)
 {
     auto graph = nb::class_<CSRGraph<>>(m, "CSRGraph");
     csr_graph_attrs_and_methods(graph);
-    graph_member_types(graph);
 }
 
 } // namespace whirlwind::bindings

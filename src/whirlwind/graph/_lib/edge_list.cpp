@@ -35,7 +35,6 @@ void
 edge_list(nb::module_& m)
 {
     auto edge_list = nb::class_<EdgeList<Size>>(m, "EdgeList");
-
     edge_list_attrs_and_methods(edge_list);
 }
 

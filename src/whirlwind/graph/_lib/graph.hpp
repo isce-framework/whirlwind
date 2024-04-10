@@ -29,12 +29,7 @@ common_graph_attrs_and_methods(nb::class_<Graph>& cls)
     cls.def("outdegree", &Graph::outdegree, "vertex"_a);
     cls.def("outgoing_edges", &Graph::outgoing_edges, "vertex"_a,
             nb::keep_alive<0, 1>());
-}
 
-template<class Graph>
-auto
-graph_member_types(nb::class_<Graph>& cls)
-{
     using Traits = GraphTraits<Graph>;
     using Vertices = Traits::vertices_type;
     using Edges = Traits::edges_type;

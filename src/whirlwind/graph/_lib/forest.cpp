@@ -29,7 +29,7 @@ forest_attrs_and_methods(nb::class_<Forest<Graph, Container>>& cls)
             nb::keep_alive<1, 2>());
 
     // Attributes.
-    cls.def_prop_ro("graph", &Class::graph);
+    cls.def_prop_ro("graph", &Class::graph, nb::rv_policy::reference_internal);
     cls.def_prop_ro("edge_fill_value", &Class::edge_fill_value);
 
     // Methods.

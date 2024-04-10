@@ -44,7 +44,6 @@ rectangular_grid_graph_inst(nb::module_& m, const char* name)
     using Class = RectangularGridGraph<P>;
     auto graph = nb::class_<Class>(m, name);
     rectangular_grid_graph_attrs_and_methods(graph);
-    graph_member_types(graph);
 }
 
 void
