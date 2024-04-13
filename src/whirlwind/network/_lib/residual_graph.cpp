@@ -77,7 +77,6 @@ residual_graph_inst(nb::module_& m, const std::string& name)
     }
 
     auto cls = nb::class_<Class, Parent>(m, name.c_str());
-    cls.def(nb::init<const Graph&>(), "original_graph"_a);
     residual_graph_mixin_attrs_and_methods(cls);
 }
 

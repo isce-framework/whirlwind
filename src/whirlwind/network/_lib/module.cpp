@@ -11,6 +11,8 @@ namespace nb = nanobind;
 
 // clang-format off
 void residual_graph(nb::module_&);
+void unit_capacity(nb::module_&);
+void network(nb::module_&);
 // clang-format on
 
 } // namespace whirlwind::bindings
@@ -25,4 +27,6 @@ NB_MODULE(_lib, m)
             std::pair(WHIRLWIND_VERSION_MAJOR, WHIRLWIND_VERSION_MINOR);
 
     whirlwind::bindings::residual_graph(m);
+    whirlwind::bindings::unit_capacity(m);
+    whirlwind::bindings::network(m);
 }
