@@ -39,7 +39,7 @@ rectangular_grid_graph_attrs_and_methods(nb::class_<RectangularGridGraph<P, Dim>
 
 template<Size P>
 void
-rectangular_grid_graph_inst(nb::module_& m, const char* name)
+rectangular_grid_graph(nb::module_& m, const char* name)
 {
     using Class = RectangularGridGraph<P>;
     auto graph = nb::class_<Class>(m, name);
@@ -49,8 +49,8 @@ rectangular_grid_graph_inst(nb::module_& m, const char* name)
 void
 rectangular_grid_graph(nb::module_& m)
 {
-    rectangular_grid_graph_inst<1>(m, "RectangularGridGraph__1");
-    rectangular_grid_graph_inst<2>(m, "RectangularGridGraph__2");
+    rectangular_grid_graph<1>(m, "RectangularGridGraph__1");
+    rectangular_grid_graph<2>(m, "RectangularGridGraph__2");
 }
 
 } // namespace whirlwind::bindings

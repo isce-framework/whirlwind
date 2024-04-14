@@ -15,6 +15,7 @@ common_capacity_mixin_attrs_and_methods(nb::class_<Class, Extra...>& cls)
     cls.def("arc_capacity", &Class::arc_capacity, "arc"_a);
     cls.def("is_arc_saturated", &Class::is_arc_saturated, "arc"_a);
     cls.def("arc_residual_capacity", &Class::arc_residual_capacity, "arc"_a);
+    cls.def("arc_flow", &Class::arc_flow, "arc"_a);
     cls.def("increase_arc_flow", &Class::increase_arc_flow, "arc"_a, "delta"_a);
 }
 

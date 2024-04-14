@@ -2,7 +2,6 @@
 
 #include <whirlwind/graph/csr_graph.hpp>
 #include <whirlwind/graph/edge_list.hpp>
-#include <whirlwind/graph/graph_traits.hpp>
 
 #include "graph.hpp"
 
@@ -11,11 +10,11 @@ namespace whirlwind::bindings {
 namespace nb = nanobind;
 using namespace nb::literals;
 
-template<template<class> class Container>
+template<class Class>
 void
-csr_graph_attrs_and_methods(nb::class_<CSRGraph<Container>>& cls)
+csr_graph_attrs_and_methods(nb::class_<Class>& cls)
 {
-    using Vertex = typename GraphTraits<CSRGraph<Container>>::vertex_type;
+    using Vertex = typename Class::vertex_type;
 
     // Constructors.
     cls.def(nb::init<>());

@@ -47,7 +47,7 @@ forest_attrs_and_methods(nb::class_<Forest<Graph, Container>>& cls)
 
 template<class Graph>
 void
-forest_inst(nb::module_& m, const char* name)
+forest(nb::module_& m, const char* name)
 {
     using Class = Forest<Graph>;
     using Vertex = Class::vertex_type;
@@ -66,8 +66,8 @@ forest_inst(nb::module_& m, const char* name)
 void
 forest(nb::module_& m)
 {
-    forest_inst<CSRGraph<>>(m, "Forest__CSRGraph");
-    forest_inst<RectangularGridGraph<>>(m, "Forest__RectangularGridGraph");
+    forest<CSRGraph<>>(m, "Forest__CSRGraph");
+    forest<RectangularGridGraph<>>(m, "Forest__RectangularGridGraph");
 }
 
 } // namespace whirlwind::bindings

@@ -44,7 +44,7 @@ dijkstra_attrs_and_methods(nb::class_<Class, Extra...>& cls)
 
 template<class Distance, class Graph>
 void
-dijkstra_inst(nb::module_& m, const char* name)
+dijkstra(nb::module_& m, const char* name)
 {
     using Class = Dijkstra<Distance, Graph>;
     using Parent = Class::forest_type;
@@ -77,10 +77,10 @@ dijkstra(nb::module_& m)
     using f64 = double;
     using i64 = std::int64_t;
 
-    dijkstra_inst<f64, CSRGraph<>>(m, "Dijkstra__f64_CSRGraph");
-    dijkstra_inst<i64, CSRGraph<>>(m, "Dijkstra__i64_CSRGraph");
-    dijkstra_inst<f64, RectangularGridGraph<>>(m, "Dijkstra__f64_RectangularGridGraph");
-    dijkstra_inst<i64, RectangularGridGraph<>>(m, "Dijkstra__i64_RectangularGridGraph");
+    dijkstra<f64, CSRGraph<>>(m, "Dijkstra__f64_CSRGraph");
+    dijkstra<i64, CSRGraph<>>(m, "Dijkstra__i64_CSRGraph");
+    dijkstra<f64, RectangularGridGraph<>>(m, "Dijkstra__f64_RectangularGridGraph");
+    dijkstra<i64, RectangularGridGraph<>>(m, "Dijkstra__i64_RectangularGridGraph");
 }
 
 } // namespace whirlwind::bindings

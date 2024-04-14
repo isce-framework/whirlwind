@@ -1,8 +1,10 @@
 #pragma once
 
+#include <utility>
+
 #include <nanobind/nanobind.h>
 
-#include <whirlwind/graph/graph_traits.hpp>
+#include <whirlwind/common/type_traits.hpp>
 
 #include "iterable.hpp"
 
@@ -30,10 +32,11 @@ common_graph_attrs_and_methods(nb::class_<Graph>& cls)
     cls.def("outgoing_edges", &Graph::outgoing_edges, "vertex"_a,
             nb::keep_alive<0, 1>());
 
-    using Traits = GraphTraits<Graph>;
-    using Vertices = Traits::vertices_type;
-    using Edges = Traits::edges_type;
-    using OutgoingEdges = Traits::outgoing_edges_type;
+    using Vertex = typename Graph::vertex_type;
+    using Vertices = remove_cvref_t<decltype(std::declval<Graph>().vertices())>;
+    using Edges = remove_cvref_t<decltype(std::declval<Graph>().edges())>;
+    using OutgoingEdges = remove_cvref_t<decltype(std::declval<Graph>().outgoing_edges(
+            std::declval<Vertex>()))>;
 
     if (!nb::type<Vertices>().is_valid()) {
         auto vertices = nb::class_<Vertices>(cls, "_Vertices");

@@ -1,9 +1,10 @@
 #include <string>
+#include <utility>
 
 #include <nanobind/nanobind.h>
 
+#include <whirlwind/common/type_traits.hpp>
 #include <whirlwind/graph/rectangular_grid_graph.hpp>
-#include <whirlwind/network/network_traits.hpp>
 #include <whirlwind/network/residual_graph.hpp>
 
 #include "iterable.hpp"
@@ -32,10 +33,11 @@ basic_residual_graph_mixin_attrs_and_methods(nb::class_<Class>& cls)
     cls.def("arcs", &Class::arcs, nb::keep_alive<0, 1>());
     cls.def("outgoing_arcs", &Class::outgoing_arcs, "node"_a, nb::keep_alive<0, 1>());
 
-    using Traits = NetworkTraits<Class>;
-    using Nodes = Traits::nodes_type;
-    using Arcs = Traits::arcs_type;
-    using OutgoingArcs = Traits::outgoing_arcs_type;
+    using Node = typename Class::node_type;
+    using Nodes = remove_cvref_t<decltype(std::declval<Class>().nodes())>;
+    using Arcs = remove_cvref_t<decltype(std::declval<Class>().arcs())>;
+    using OutgoingArcs = remove_cvref_t<decltype(std::declval<Class>().outgoing_arcs(
+            std::declval<Node>()))>;
 
     if (!nb::type<Nodes>().is_valid()) {
         auto nodes = nb::class_<Nodes>(cls, "_Nodes");
@@ -66,7 +68,7 @@ residual_graph_mixin_attrs_and_methods(nb::class_<Class, Extra...>& cls)
 
 template<class Graph>
 void
-residual_graph_inst(nb::module_& m, const std::string& name)
+residual_graph(nb::module_& m, const std::string& name)
 {
     using Class = ResidualGraphMixin<Graph>;
     using Parent = detail::BasicResidualGraphMixin<Graph>;
@@ -83,8 +85,8 @@ residual_graph_inst(nb::module_& m, const std::string& name)
 void
 residual_graph(nb::module_& m)
 {
-    residual_graph_inst<RectangularGridGraph<>>(
-            m, "ResidualGraphMixin__RectangularGridGraph");
+    residual_graph<RectangularGridGraph<>>(m,
+                                           "ResidualGraphMixin__RectangularGridGraph");
 }
 
 } // namespace whirlwind::bindings

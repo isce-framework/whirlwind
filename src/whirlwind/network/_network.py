@@ -282,6 +282,23 @@ class Network(Generic[ResidualGraph, Cost, Flow]):
         """
         return self._impl.arc_residual_capacity(arc)
 
+    def arc_flow(self, arc: Arc) -> Flow:
+        """
+        Get the amount of flow in an arc.
+
+        Parameters
+        ----------
+        arc : Arc
+            The input arc. Must be a valid arc in the network's residual graph (though
+            its residual capacity may be zero).
+
+        Returns
+        -------
+        Flow
+            The amount of flow in the arc.
+        """
+        return self._impl.arc_flow(arc)
+
     def increase_arc_flow(self, arc: Arc, delta: Flow) -> None:
         """
         Increase flow in an arc.
@@ -324,6 +341,12 @@ class Network(Generic[ResidualGraph, Cost, Flow]):
     def total_excess(self) -> int:
         return self._impl.total_excess()
 
+    def total_deficit(self) -> int:
+        return self._impl.total_deficit()
+
+    def is_balanced(self) -> bool:
+        return self._impl.is_balanced()
+
     def node_potential(self, node: Node) -> Cost:
         return self._impl.node_potential(node)
 
@@ -338,3 +361,6 @@ class Network(Generic[ResidualGraph, Cost, Flow]):
 
     def arc_reduced_cost(self, arc: Arc, tail: Node, head: Node) -> Cost:
         return self._impl.arc_reduced_cost(arc=arc, tail=tail, head=head)
+
+    def total_cost(self) -> Cost:
+        return self._impl.total_cost()

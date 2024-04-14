@@ -32,8 +32,8 @@ network_attrs_and_methods(nb::class_<Class, Extra...>& cls)
     // Constructors
     cls.def(
             "__init__",
-            [](Class* self, const Graph& graph, const Array1D<Flow>& surplus,
-               const Array1D<Cost>& cost) {
+            [](Class* self, const Graph& graph, const Array1D<const Flow>& surplus,
+               const Array1D<const Cost>& cost) {
                 auto surplus_span = ranges::span(surplus.data(), surplus.size());
                 auto cost_span = ranges::span(cost.data(), cost.size());
 
@@ -51,6 +51,10 @@ network_attrs_and_methods(nb::class_<Class, Extra...>& cls)
     cls.def("deficit_nodes", &Class::deficit_nodes, nb::keep_alive<0, 1>());
     cls.def("total_excess", &Class::total_excess,
             nb::call_guard<nb::gil_scoped_release>());
+    cls.def("total_deficit", &Class::total_deficit,
+            nb::call_guard<nb::gil_scoped_release>());
+    cls.def("is_balanced", &Class::is_balanced,
+            nb::call_guard<nb::gil_scoped_release>());
     cls.def("node_potential", &Class::node_potential, "node"_a);
     cls.def("increase_node_potential", &Class::increase_node_potential, "node"_a,
             "delta"_a);
@@ -58,6 +62,7 @@ network_attrs_and_methods(nb::class_<Class, Extra...>& cls)
             "delta"_a);
     cls.def("arc_cost", &Class::arc_cost, "arc"_a);
     cls.def("arc_reduced_cost", &Class::arc_reduced_cost, "arc"_a, "tail"_a, "head"_a);
+    cls.def("total_cost", &Class::total_cost, nb::call_guard<nb::gil_scoped_release>());
 
     using ExcessNodes = remove_cvref_t<decltype(std::declval<Class>().excess_nodes())>;
     using DeficitNodes =

@@ -16,7 +16,7 @@ template<class Graph,
          class Flow = std::int32_t,
          template<class> class Container = std::vector>
 void
-unit_capacity_inst(nb::module_& m, const char* name)
+unit_capacity(nb::module_& m, const char* name)
 {
     using Parent = ResidualGraphMixin<Graph, Container>;
     using Class = UnitCapacityMixin<Graph, Flow, Container, Parent>;
@@ -27,8 +27,7 @@ unit_capacity_inst(nb::module_& m, const char* name)
 void
 unit_capacity(nb::module_& m)
 {
-    unit_capacity_inst<RectangularGridGraph<>>(
-            m, "UnitCapacityMixin__RectangularGridGraph");
+    unit_capacity<RectangularGridGraph<>>(m, "UnitCapacityMixin__RectangularGridGraph");
 }
 
 } // namespace whirlwind::bindings
