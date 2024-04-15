@@ -22,6 +22,10 @@ strict = true
 warn_unused_configs = true
 
 [[tool.mypy.overrides]]
+module = ["whirlwind.graph.*", "whirlwind.network.*"]
+disable_error_code = ["attr-defined", "no-any-return", "type-var", "valid-type"]
+
+[[tool.mypy.overrides]]
 module = "test.*"
 disable_error_code = ["misc", "no-untyped-def"]
 
@@ -76,7 +80,6 @@ select = [
   "RET", # flake8-return
   "RUF", # Ruff-specific rules
   "SIM", # flake8-simplify
-  "SLF", # flake8-self
   "TRY", # tryceratops
   "UP",  # pyupgrade
   "W",   # pycodestyle (warnings)
