@@ -1,8 +1,9 @@
 # Add Python extension module.
 nanobind_add_module(network-pymodule NB_DOMAIN whirlwind)
 target_sources(
-  network-pymodule PRIVATE # cmake-format: sortable
-                           module.cpp network.cpp residual_graph.cpp unit_capacity.cpp
+  network-pymodule
+  PRIVATE # cmake-format: sortable
+          module.cpp network.cpp residual_graph.cpp uncapacitated.cpp unit_capacity.cpp
 )
 target_include_directories(
   network-pymodule PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>

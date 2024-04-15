@@ -25,8 +25,6 @@ Flow = TypeVar("Flow")
 
 
 def _make_network_impl(graph, surplus, cost, capacity):  # type: ignore[no-untyped-def]
-    if capacity != 1:
-        raise NotImplementedError
     if type(graph) != RectangularGridGraph:
         raise NotImplementedError
 
@@ -37,19 +35,24 @@ def _make_network_impl(graph, surplus, cost, capacity):  # type: ignore[no-untyp
     if not np.issubdtype(surplus.dtype, np.integer):
         raise TypeError
 
-    if np.issubdtype(cost.dtype, np.floating):
-        return _lib.Network__RectangularGridGraph_f32_i32_vector_UnitCapacity(
-            graph=graph._impl,
-            surplus=surplus,
-            cost=cost,
-        )
-    if np.issubdtype(cost.dtype, np.integer):
-        return _lib.Network__RectangularGridGraph_i32_i32_vector_UnitCapacity(
-            graph=graph._impl,
-            surplus=surplus,
-            cost=cost,
-        )
-    raise TypeError
+    if capacity is None:
+        if np.issubdtype(cost.dtype, np.floating):
+            cls = _lib.Network__RectangularGridGraph_f32_i32_vector_Uncapacitated
+        elif np.issubdtype(cost.dtype, np.integer):
+            cls = _lib.Network__RectangularGridGraph_i32_i32_vector_Uncapacitated
+        else:
+            raise TypeError
+    elif capacity == 1:
+        if np.issubdtype(cost.dtype, np.floating):
+            cls = _lib.Network__RectangularGridGraph_f32_i32_vector_UnitCapacity
+        elif np.issubdtype(cost.dtype, np.integer):
+            cls = _lib.Network__RectangularGridGraph_i32_i32_vector_UnitCapacity
+        else:
+            raise TypeError
+    else:
+        raise NotImplementedError
+
+    return cls(graph=graph._impl, surplus=surplus, cost=cost)
 
 
 class Network(Generic[ResidualGraph, Cost, Flow]):
@@ -80,6 +83,10 @@ class Network(Generic[ResidualGraph, Cost, Flow]):
         residual capacity is zero).
         """
         return self._impl.num_arcs
+
+    @property
+    def num_forward_arcs(self) -> int:
+        return self._impl.num_forward_arcs
 
     def contains_node(self, node: Node) -> bool:
         """Check whether the network contains the specified node."""

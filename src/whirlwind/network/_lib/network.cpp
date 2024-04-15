@@ -9,6 +9,7 @@
 
 #include <whirlwind/common/type_traits.hpp>
 #include <whirlwind/network/network.hpp>
+#include <whirlwind/network/uncapacitated.hpp>
 #include <whirlwind/network/unit_capacity.hpp>
 
 #include "iterable.hpp"
@@ -98,6 +99,9 @@ template<class Graph, class Cost, class Flow, template<class> class Container>
 void
 network(nb::module_& m, const std::string& name)
 {
+    using Uncapacitated = UncapacitatedMixin<Graph, Flow, Container>;
+    network<Graph, Cost, Flow, Container, Uncapacitated>(m, name + "_Uncapacitated");
+
     using UnitCapacity = UnitCapacityMixin<Graph, Flow, Container>;
     network<Graph, Cost, Flow, Container, UnitCapacity>(m, name + "_UnitCapacity");
 }

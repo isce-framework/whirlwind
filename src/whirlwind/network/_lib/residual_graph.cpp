@@ -23,6 +23,7 @@ basic_residual_graph_mixin_attrs_and_methods(nb::class_<Class>& cls)
                     nb::rv_policy::reference_internal);
     cls.def_prop_ro("num_nodes", &Class::num_nodes);
     cls.def_prop_ro("num_arcs", &Class::num_arcs);
+    cls.def_prop_ro("num_forward_arcs", &Class::num_forward_arcs);
 
     // Methods.
     cls.def("contains_node", &Class::contains_node, "node"_a);
