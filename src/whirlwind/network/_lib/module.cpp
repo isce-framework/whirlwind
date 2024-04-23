@@ -12,6 +12,7 @@ namespace nb = nanobind;
 // clang-format off
 void network(nb::module_&);
 void residual_graph(nb::module_&);
+void successive_shortest_paths(nb::module_&);
 void uncapacitated(nb::module_&);
 void unit_capacity(nb::module_&);
 // clang-format on
@@ -31,4 +32,5 @@ NB_MODULE(_lib, m)
     whirlwind::bindings::uncapacitated(m);
     whirlwind::bindings::unit_capacity(m);
     whirlwind::bindings::network(m);
+    whirlwind::bindings::successive_shortest_paths(m);
 }
