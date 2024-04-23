@@ -42,6 +42,25 @@ class Forest:
         """The underlying graph."""
         return self._impl.graph  # FIXME
 
+    def depth(self, vertex: Vertex) -> int:
+        """
+        Get the depth of a vertex.
+
+        Returns the total number of ancestors of the specified vertex. Root vertices
+        have a depth of zero.
+
+        Parameters
+        ----------
+        vertex : Vertex
+            The input vertex. Must be a valid vertex in the graph.
+
+        Returns
+        -------
+        int
+            The depth of the vertex.
+        """
+        return self._impl.depth(vertex)
+
     def predecessor_vertex(self, vertex: Vertex) -> Vertex:
         """
         Get the predecessor (parent) vertex of a vertex.

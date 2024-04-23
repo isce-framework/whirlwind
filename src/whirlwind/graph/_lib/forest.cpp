@@ -33,6 +33,7 @@ forest_attrs_and_methods(nb::class_<Forest<Graph, Container>>& cls)
     cls.def_prop_ro("edge_fill_value", &Class::edge_fill_value);
 
     // Methods.
+    cls.def("depth", &Class::depth, "vertex"_a);
     cls.def("predecessor_vertex", &Class::predecessor_vertex, "vertex"_a);
     cls.def("predecessor_edge", &Class::predecessor_edge, "vertex"_a);
     cls.def("predecessor", &Class::predecessor, "vertex"_a);
