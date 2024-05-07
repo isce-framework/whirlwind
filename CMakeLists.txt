@@ -26,3 +26,4 @@ find_package(nanobind CONFIG REQUIRED)
 
 add_subdirectory(src/whirlwind/graph/_lib)
 add_subdirectory(src/whirlwind/network/_lib)
+add_subdirectory(src/whirlwind/spline/_lib)

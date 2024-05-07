@@ -20,7 +20,7 @@ namespace nb = nanobind;
 using namespace nb::literals;
 
 template<class T>
-using Array1D = nb::ndarray<T, nb::ndim<1>, nb::c_contig, nb::device::cpu>;
+using PyArray1D = nb::ndarray<T, nb::ndim<1>, nb::c_contig, nb::device::cpu>;
 
 template<class Class, class... Extra>
 void
@@ -33,8 +33,8 @@ network_attrs_and_methods(nb::class_<Class, Extra...>& cls)
     // Constructors
     cls.def(
             "__init__",
-            [](Class* self, const Graph& graph, const Array1D<const Flow>& surplus,
-               const Array1D<const Cost>& cost) {
+            [](Class* self, const Graph& graph, const PyArray1D<const Flow>& surplus,
+               const PyArray1D<const Cost>& cost) {
                 auto surplus_span = ranges::span(surplus.data(), surplus.size());
                 auto cost_span = ranges::span(cost.data(), cost.size());
 

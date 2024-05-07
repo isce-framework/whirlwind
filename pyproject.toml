@@ -22,7 +22,7 @@ strict = true
 warn_unused_configs = true
 
 [[tool.mypy.overrides]]
-module = ["whirlwind.graph.*", "whirlwind.network.*"]
+module = ["whirlwind.graph.*", "whirlwind.network.*", "whirlwind.spline.*"]
 disable_error_code = ["attr-defined", "no-any-return", "type-var", "valid-type"]
 
 [[tool.mypy.overrides]]
