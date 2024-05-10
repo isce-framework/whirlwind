@@ -1,20 +1,15 @@
 #include <nanobind/nanobind.h>
-#include <nanobind/ndarray.h>
 #include <nanobind/stl/array.h>
 #include <range/v3/view/span.hpp>
 
 #include <whirlwind/spline/cubic_b_spline_basis.hpp>
 
+#include "array.hpp"
+
 namespace whirlwind::bindings {
 
 namespace nb = nanobind;
 using namespace nb::literals;
-
-template<class T>
-using PyArray1D = nb::ndarray<T, nb::ndim<1>, nb::c_contig, nb::device::cpu>;
-
-template<class T>
-using NumPyArray1D = nb::ndarray<T, nb::numpy, nb::ndim<1>>;
 
 template<class Class>
 void
@@ -25,9 +20,9 @@ cubic_b_spline_basis_attrs_and_methods(nb::class_<Class>& cls)
     // Constructors.
     cls.def(
             "__init__",
-            [](Class* self, const PyArray1D<const Knot>& knots) {
-                auto knots_span = ranges::span(knots.data(), knots.size());
-                new (self) Class(std::move(knots_span));
+            [](Class* self, const PyContiguousArray1D<const Knot>& knots) {
+                const auto knots_span = ranges::span(knots.data(), knots.size());
+                new (self) Class(knots_span);
             },
             "knots"_a, nb::call_guard<nb::gil_scoped_release>());
 

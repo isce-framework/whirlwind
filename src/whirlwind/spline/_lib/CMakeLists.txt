@@ -3,7 +3,7 @@ nanobind_add_module(spline-pymodule NB_DOMAIN whirlwind)
 target_sources(
   spline-pymodule
   PRIVATE # cmake-format: sortable
-          module.cpp cubic_b_spline_basis.cpp
+          cubic_b_spline.cpp cubic_b_spline_basis.cpp module.cpp
 )
 target_include_directories(
   spline-pymodule PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>

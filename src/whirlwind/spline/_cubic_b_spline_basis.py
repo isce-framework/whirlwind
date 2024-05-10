@@ -48,5 +48,5 @@ class CubicBSplineBasis:
         return self._impl.eval_derivative_in_interval(x, i)
 
     def eval_second_derivative_in_interval(self, x: float, i: int) -> float:
-        """" """
+        """ """
         return self._impl.eval_second_derivative_in_interval(x, i)
