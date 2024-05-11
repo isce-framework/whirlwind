@@ -10,6 +10,7 @@ namespace whirlwind::bindings {
 namespace nb = nanobind;
 
 // clang-format off
+void bi_cubic_b_spline(nb::module_&);
 void cubic_b_spline(nb::module_&);
 void cubic_b_spline_basis(nb::module_&);
 // clang-format on
@@ -27,4 +28,5 @@ NB_MODULE(_lib, m)
 
     whirlwind::bindings::cubic_b_spline_basis(m);
     whirlwind::bindings::cubic_b_spline(m);
+    whirlwind::bindings::bi_cubic_b_spline(m);
 }

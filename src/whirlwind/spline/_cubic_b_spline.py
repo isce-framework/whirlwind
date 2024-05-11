@@ -3,8 +3,8 @@
 import numpy as np
 from numpy.typing import ArrayLike
 
-from ._cubic_b_spline_basis import CubicBSplineBasis
 from . import _lib
+from ._cubic_b_spline_basis import CubicBSplineBasis
 
 __all__ = [
     "CubicBSpline",
@@ -22,10 +22,9 @@ def _make_cubic_b_spline_impl(basis, control_points):  # type: ignore[no-untyped
 class CubicBSpline:
     def __init__(self, basis: CubicBSplineBasis, control_points: ArrayLike):
         self._impl = _make_cubic_b_spline_impl(basis, control_points)
-        ...
 
     # @classmethod
-    # def interpolate(cls, knots: ArrayLike, values: ArrayLike) -> Self:
+    # def interpolate(cls: type[Self], knots: ArrayLike, values: ArrayLike) -> Self:
     #     """ """
     #     return
 
