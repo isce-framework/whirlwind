@@ -21,7 +21,7 @@ def _make_cubic_b_spline_impl(basis, control_points):  # type: ignore[no-untyped
 
 class CubicBSpline:
     def __init__(self, basis: CubicBSplineBasis, control_points: ArrayLike):
-        self._impl = _make_cubic_b_spline_impl(basis, control_points)
+        self._impl = _make_cubic_b_spline_impl(basis, control_points)  # type: ignore[no-untyped-call]
 
     # @classmethod
     # def interpolate(cls: type[Self], knots: ArrayLike, values: ArrayLike) -> Self:

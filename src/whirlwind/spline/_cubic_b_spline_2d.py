@@ -25,10 +25,12 @@ class BiCubicBSpline:
         bases: tuple[CubicBSplineBasis, CubicBSplineBasis],
         control_points: ArrayLike,
     ):
-        self._impl = _make_bi_cubic_b_spline_impl(bases[0], bases[1], control_points)
+        self._impl = _make_bi_cubic_b_spline_impl(bases[0], bases[1], control_points)  # type: ignore[no-untyped-call]
 
     # @classmethod
-    # def interpolate(cls: type[Self], knots: tuple[ArrayLike, ArrayLike], values: ArrayLike) -> Self:
+    # def interpolate(
+    #     cls: type[Self], knots: tuple[ArrayLike, ArrayLike], values: ArrayLike
+    # ) -> Self:
     #     """ """
     #     return
 

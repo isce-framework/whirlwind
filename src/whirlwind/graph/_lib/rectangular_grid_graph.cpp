@@ -20,7 +20,7 @@ rectangular_grid_graph_attrs_and_methods(nb::class_<RectangularGridGraph<P, Dim>
     cls.def(nb::init<>());
     cls.def(nb::init<Dim, Dim>(), "num_rows"_a, "num_cols"_a);
 
-    // Static attributes
+    // Static attributes.
     cls.def_prop_ro_static("num_parallel_edges",
                            [](nb::handle) { return Class::num_parallel_edges(); });
 
