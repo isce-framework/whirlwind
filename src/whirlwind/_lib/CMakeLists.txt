@@ -2,7 +2,7 @@
 nanobind_add_module(whirlwind-pymodule NB_DOMAIN whirlwind)
 target_sources(
   whirlwind-pymodule PRIVATE # cmake-format: sortable
-                             module.cpp residue.cpp
+                             integrate_unwrapped_gradients.cpp module.cpp residue.cpp
 )
 target_include_directories(
   whirlwind-pymodule PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>

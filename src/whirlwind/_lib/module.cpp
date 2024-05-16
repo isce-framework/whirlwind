@@ -11,6 +11,7 @@ namespace nb = nanobind;
 
 // clang-format off
 void residue(nb::module_&);
+void integrate_unwrapped_gradients(nb::module_&);
 // clang-format on
 
 } // namespace whirlwind::bindings
@@ -25,4 +26,5 @@ NB_MODULE(_lib, m)
             std::pair(WHIRLWIND_VERSION_MAJOR, WHIRLWIND_VERSION_MINOR);
 
     whirlwind::bindings::residue(m);
+    whirlwind::bindings::integrate_unwrapped_gradients(m);
 }
