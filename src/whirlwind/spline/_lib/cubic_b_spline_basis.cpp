@@ -1,6 +1,7 @@
+#include <span>
+
 #include <nanobind/nanobind.h>
 #include <nanobind/stl/array.h>
-#include <range/v3/view/span.hpp>
 
 #include <whirlwind/spline/cubic_b_spline_basis.hpp>
 
@@ -21,7 +22,7 @@ cubic_b_spline_basis_attrs_and_methods(nb::class_<Class>& cls)
     cls.def(
             "__init__",
             [](Class* self, const PyContiguousArray1D<const Knot>& knots) {
-                const auto knots_span = ranges::span(knots.data(), knots.size());
+                const auto knots_span = std::span(knots.data(), knots.size());
                 new (self) Class(knots_span);
             },
             "knots"_a, nb::call_guard<nb::gil_scoped_release>());

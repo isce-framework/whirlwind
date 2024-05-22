@@ -1,8 +1,8 @@
+#include <span>
 #include <utility>
 
 #include <nanobind/nanobind.h>
 #include <nanobind/stl/pair.h>
-#include <range/v3/view/span.hpp>
 
 #include <whirlwind/common/assert.hpp>
 #include <whirlwind/spline/cubic_b_spline_2d.hpp>
@@ -29,7 +29,7 @@ bi_cubic_b_spline_attrs_and_methods(nb::class_<Class>& cls)
             [](Class* self, const std::pair<Basis, Basis>& bases,
                const PyContiguousArray2D<const Value>& control_points) {
                 const auto control_points_span =
-                        ranges::span(control_points.data(), control_points.size());
+                        std::span(control_points.data(), control_points.size());
                 new (self) Class(bases, control_points_span);
             },
             "bases"_a, "control_points"_a);
@@ -38,7 +38,7 @@ bi_cubic_b_spline_attrs_and_methods(nb::class_<Class>& cls)
             [](Class* self, const Basis& basis0, const Basis& basis1,
                const PyContiguousArray2D<const Value>& control_points) {
                 const auto control_points_span =
-                        ranges::span(control_points.data(), control_points.size());
+                        std::span(control_points.data(), control_points.size());
                 new (self) Class(basis0, basis1, control_points_span);
             },
             "basis0"_a, "basis1"_a, "control_points"_a);

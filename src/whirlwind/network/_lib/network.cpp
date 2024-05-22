@@ -1,11 +1,11 @@
 #include <cstdint>
+#include <span>
 #include <string>
 #include <utility>
 #include <vector>
 
 #include <nanobind/nanobind.h>
 #include <nanobind/ndarray.h>
-#include <range/v3/view/span.hpp>
 
 #include <whirlwind/common/type_traits.hpp>
 #include <whirlwind/network/network.hpp>
@@ -35,8 +35,8 @@ network_attrs_and_methods(nb::class_<Class, Extra...>& cls)
             "__init__",
             [](Class* self, const Graph& graph, const PyArray1D<const Flow>& surplus,
                const PyArray1D<const Cost>& cost) {
-                auto surplus_span = ranges::span(surplus.data(), surplus.size());
-                auto cost_span = ranges::span(cost.data(), cost.size());
+                auto surplus_span = std::span(surplus.data(), surplus.size());
+                auto cost_span = std::span(cost.data(), cost.size());
 
                 new (self) Class(graph, std::move(surplus_span), std::move(cost_span));
             },
