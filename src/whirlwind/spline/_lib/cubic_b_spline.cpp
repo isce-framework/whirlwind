@@ -55,8 +55,23 @@ cubic_b_spline_attrs_and_methods(nb::class_<Class>& cls)
             nb::rv_policy::reference_internal);
 
     // Dunder methods.
-    cls.def("__call__", &Class::operator(), "x"_a,
+    cls.def(
+            "__call__", [](const Class& self, const Knot& x) { return self(x); }, "x"_a,
             nb::call_guard<nb::gil_scoped_release>());
+    cls.def(
+            "__call__",
+            [](const Class& self, const PyContiguousArray<const Knot>& x) {
+                const auto x_span = std::span(x.data(), x.size());
+
+                auto y = [&]() {
+                    [[maybe_unused]] const nb::gil_scoped_release nogil;
+                    return self(x_span);
+                }();
+
+                const auto shape = shape_of(x);
+                return to_numpy_array(std::move(y), shape);
+            },
+            "x"_a);
 }
 
 template<class T>

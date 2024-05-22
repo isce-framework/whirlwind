@@ -81,8 +81,33 @@ tri_cubic_b_spline_attrs_and_methods(nb::class_<Class>& cls)
             nb::rv_policy::reference_internal);
 
     // Dunder methods.
-    cls.def("__call__", &Class::operator(), "x0"_a, "x1"_a, "x2"_a,
-            nb::call_guard<nb::gil_scoped_release>());
+    cls.def(
+            "__call__",
+            [](const Class& self, const Knot& x0, const Knot& x1, const Knot& x2) {
+                return self(x0, x1, x2);
+            },
+            "x0"_a, "x1"_a, "x2"_a, nb::call_guard<nb::gil_scoped_release>());
+    cls.def(
+            "__call__",
+            [](const Class& self, const PyContiguousArray<const Knot>& x0,
+               const PyContiguousArray<const Knot>& x1,
+               const PyContiguousArray<const Knot>& x2) {
+                const auto shape = shape_of(x0);
+                WHIRLWIND_ASSERT(shape_of(x1) == shape);
+                WHIRLWIND_ASSERT(shape_of(x2) == shape);
+
+                const auto x0_span = std::span(x0.data(), x0.size());
+                const auto x1_span = std::span(x1.data(), x1.size());
+                const auto x2_span = std::span(x2.data(), x2.size());
+
+                auto y = [&]() {
+                    [[maybe_unused]] const nb::gil_scoped_release nogil;
+                    return self(x0_span, x1_span, x2_span);
+                }();
+
+                return to_numpy_array(std::move(y), shape);
+            },
+            "x0"_a, "x1"_a, "x2"_a);
 }
 
 template<class T>
