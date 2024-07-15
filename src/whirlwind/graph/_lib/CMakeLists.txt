@@ -3,8 +3,14 @@ nanobind_add_module(graph-pymodule NB_DOMAIN whirlwind NOMINSIZE)
 target_sources(
   graph-pymodule
   PRIVATE # cmake-format: sortable
-          csr_graph.cpp dial.cpp dijkstra.cpp edge_list.cpp forest.cpp module.cpp
-          rectangular_grid_graph.cpp shortest_path_forest.cpp
+          csr_graph.cpp
+          dial.cpp
+          dijkstra.cpp
+          edge_list.cpp
+          forest.cpp
+          module.cpp
+          rectangular_grid_graph.cpp
+          shortest_path_forest.cpp
 )
 target_include_directories(
   graph-pymodule PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>

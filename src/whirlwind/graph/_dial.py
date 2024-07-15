@@ -22,8 +22,8 @@ def _make_dial_impl(graph, num_buckets, bucket_diameter):  # type: ignore[no-unt
 
 class Dial(Forest, Generic[Graph, Distance]):
 
-    def __init__(self, graph: Graph, num_buckets, bucket_diameter = 1):
-        self._impl = _make_dial_impl(graph, num_buckets, bucket_diameter)  # type: ignore[no-untyped-call]
+    def __init__(self, graph: Graph, num_buckets):
+        self._impl = _make_dial_impl(graph, num_buckets)  # type: ignore[no-untyped-call]
 
     def has_reached_vertex(self, vertex: Vertex) -> bool:
         return self._impl.has_reached_vertex(vertex)
