@@ -59,7 +59,7 @@ ndspan_of(const PyContiguousArray3D<T>& arr) -> Span3D<T>
 }
 
 template<class T, class Container>
-[[nodiscard]] constexpr auto
+[[nodiscard]] auto
 to_numpy_array(Array1D<T, Container> arr) -> NumPyArray1D<T>
 {
     auto out = new auto(std::move(arr));
@@ -69,7 +69,7 @@ to_numpy_array(Array1D<T, Container> arr) -> NumPyArray1D<T>
 }
 
 template<class T, class Container>
-[[nodiscard]] constexpr auto
+[[nodiscard]] auto
 to_numpy_array(Array2D<T, Container> arr) -> NumPyArray2D<T>
 {
     auto out = new auto(std::move(arr));
@@ -80,7 +80,7 @@ to_numpy_array(Array2D<T, Container> arr) -> NumPyArray2D<T>
 }
 
 template<class T, class Container>
-[[nodiscard]] constexpr auto
+[[nodiscard]] auto
 to_numpy_array(Array3D<T, Container> arr) -> NumPyArray3D<T>
 {
     auto out = new auto(std::move(arr));

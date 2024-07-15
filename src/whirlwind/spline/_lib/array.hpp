@@ -53,7 +53,7 @@ shape_of(const nb::ndarray<Args...>& arr) -> std::vector<std::size_t>
 }
 
 template<class T, class Allocator>
-[[nodiscard]] constexpr auto
+[[nodiscard]] auto
 to_numpy_array(std::vector<T, Allocator> arr, const std::vector<std::size_t>& shape)
         -> NumPyArray<T>
 {
