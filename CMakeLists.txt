@@ -13,6 +13,12 @@ endif()
 
 project(${SKBUILD_PROJECT_NAME} LANGUAGES CXX)
 
+# By default in CMake>=3.28, CMake will scan C++ sources of each target with C++20 or
+# higher enabled for module dependencies. With Clang, this requires the
+# `clang-scan-deps` tool, which may not be included in some Clang distributions. We're
+# not using modules so disable the scan.
+set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
+
 # Add submodule project(s).
 add_subdirectory(ext SYSTEM)
 
