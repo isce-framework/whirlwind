@@ -1,5 +1,5 @@
 # Add Python extension module.
-nanobind_add_module(spline-pymodule NB_DOMAIN whirlwind)
+nanobind_add_module(spline-pymodule NB_DOMAIN whirlwind NOMINSIZE)
 target_sources(
   spline-pymodule
   PRIVATE # cmake-format: sortable

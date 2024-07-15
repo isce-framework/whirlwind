@@ -1,5 +1,5 @@
 # Add Python extension module.
-nanobind_add_module(whirlwind-pymodule NB_DOMAIN whirlwind)
+nanobind_add_module(whirlwind-pymodule NB_DOMAIN whirlwind NOMINSIZE)
 target_sources(
   whirlwind-pymodule PRIVATE # cmake-format: sortable
                              integrate_unwrapped_gradients.cpp module.cpp residue.cpp

@@ -83,7 +83,7 @@ template<class T>
 void
 integrate_unwrapped_gradients(nb::module_& m)
 {
-    using Graph = RectangularGridGraph<1, Size>;
+    using Graph = RectangularGridGraph<>;
     integrate_unwrapped_gradients<T, Graph>(m);
 }
 

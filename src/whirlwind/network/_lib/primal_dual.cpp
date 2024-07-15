@@ -7,8 +7,8 @@
 #include <whirlwind/graph/dijkstra.hpp>
 #include <whirlwind/logging/null_logger.hpp>
 #include <whirlwind/network/network.hpp>
+#include <whirlwind/network/primal_dual.hpp>
 #include <whirlwind/network/residual_graph_traits.hpp>
-#include <whirlwind/network/successive_shortest_paths.hpp>
 #include <whirlwind/network/uncapacitated.hpp>
 #include <whirlwind/network/unit_capacity.hpp>
 
@@ -25,13 +25,13 @@ template<class Graph,
          template<class> class Container, // clang-format on
          class Mixin>
 void
-successive_shortest_paths(nb::module_& m)
+primal_dual(nb::module_& m)
 {
+    using ResidualGraph = ResidualGraphTraits<Graph>::type;
     using Network = Network<Graph, Cost, Flow, Container, Mixin>;
 
-    m.def("successive_shortest_paths",
-          &whirlwind::successive_shortest_paths<Dijkstra, Logger, Network>, "network"_a,
-          nb::call_guard<nb::gil_scoped_release>());
+    m.def("primal_dual", &whirlwind::primal_dual<Dijkstra, Logger, Network>,
+          "network"_a, "maxiter"_a = 0, nb::call_guard<nb::gil_scoped_release>());
 }
 
 template<class Graph,
@@ -41,60 +41,58 @@ template<class Graph,
          class Flow, // clang-format off
          template<class> class Container> // clang-format on
 void
-successive_shortest_paths(nb::module_& m)
+primal_dual(nb::module_& m)
 {
     using Uncapacitated = UncapacitatedMixin<Graph, Flow, Container>;
-    successive_shortest_paths<Graph, Cost, Dijkstra, Logger, Flow, Container,
-                              Uncapacitated>(m);
+    primal_dual<Graph, Cost, Dijkstra, Logger, Flow, Container, Uncapacitated>(m);
 
     using UnitCapacity = UnitCapacityMixin<Graph, Flow, Container>;
-    successive_shortest_paths<Graph, Cost, Dijkstra, Logger, Flow, Container,
-                              UnitCapacity>(m);
+    primal_dual<Graph, Cost, Dijkstra, Logger, Flow, Container, UnitCapacity>(m);
 }
 
 template<class Graph, class Cost, class Dijkstra, class Logger, class Flow>
 void
-successive_shortest_paths(nb::module_& m)
+primal_dual(nb::module_& m)
 {
-    successive_shortest_paths<Graph, Cost, Dijkstra, Logger, Flow, std::vector>(m);
+    primal_dual<Graph, Cost, Dijkstra, Logger, Flow, std::vector>(m);
 }
 
 template<class Graph, class Cost, class Dijkstra, class Logger>
 void
-successive_shortest_paths(nb::module_& m)
+primal_dual(nb::module_& m)
 {
-    successive_shortest_paths<Graph, Cost, Dijkstra, Logger, std::int32_t>(m);
+    primal_dual<Graph, Cost, Dijkstra, Logger, std::int32_t>(m);
 }
 
 template<class Graph, class Cost, class Dijkstra>
 void
-successive_shortest_paths(nb::module_& m)
+primal_dual(nb::module_& m)
 {
-    successive_shortest_paths<Graph, Cost, Dijkstra, NullLogger>(m);
+    primal_dual<Graph, Cost, Dijkstra, NullLogger>(m);
 }
 
 template<class Graph, class Cost>
 void
-successive_shortest_paths(nb::module_& m)
+primal_dual(nb::module_& m)
 {
     using ResidualGraph = ResidualGraphTraits<Graph>::type;
 
-    successive_shortest_paths<Graph, Cost, Dial<Cost, ResidualGraph>>(m);
-    successive_shortest_paths<Graph, Cost, Dijkstra<Cost, ResidualGraph>>(m);
+    primal_dual<Graph, Cost, Dial<Cost, ResidualGraph>>(m);
+    primal_dual<Graph, Cost, Dijkstra<Cost, ResidualGraph>>(m);
 }
 
 template<class Graph>
 void
-successive_shortest_paths(nb::module_& m)
+primal_dual(nb::module_& m)
 {
-    // successive_shortest_paths<Graph, float>(m);
-    successive_shortest_paths<Graph, std::int32_t>(m);
+    // primal_dual<Graph, float>(m);
+    primal_dual<Graph, std::int32_t>(m);
 }
 
 void
-successive_shortest_paths(nb::module_& m)
+primal_dual(nb::module_& m)
 {
-    successive_shortest_paths<RectangularGridGraph<>>(m);
+    primal_dual<RectangularGridGraph<>>(m);
 }
 
 } // namespace whirlwind::bindings
