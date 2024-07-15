@@ -1,8 +1,8 @@
 #include <cstdint>
-#include <vector>
 
 #include <nanobind/nanobind.h>
 
+#include <whirlwind/common/vector.hpp>
 #include <whirlwind/network/residual_graph.hpp>
 #include <whirlwind/network/unit_capacity.hpp>
 
@@ -14,7 +14,7 @@ namespace nb = nanobind;
 
 template<class Graph,
          class Flow = std::int32_t,
-         template<class> class Container = std::vector>
+         template<class> class Container = Vector>
 void
 unit_capacity(nb::module_& m, const char* name)
 {

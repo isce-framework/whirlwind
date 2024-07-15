@@ -1,12 +1,12 @@
 #include <cstdint>
 #include <string>
-#include <vector>
 
 #include <nanobind/nanobind.h>
 #include <nanobind/stl/pair.h>
 
 #include <whirlwind/common/queue.hpp>
 #include <whirlwind/common/stddef.hpp>
+#include <whirlwind/common/vector.hpp>
 #include <whirlwind/graph/csr_graph.hpp>
 #include <whirlwind/graph/dial.hpp>
 #include <whirlwind/graph/rectangular_grid_graph.hpp>
@@ -85,7 +85,7 @@ template<class Distance, class Graph>
 void
 dial(nb::module_& m, const std::string& name)
 {
-    dial<Distance, Graph, std::vector>(m, name);
+    dial<Distance, Graph, Vector>(m, name);
 }
 
 template<class Distance>

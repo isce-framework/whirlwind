@@ -1,11 +1,11 @@
 #include <cstdint>
 #include <string>
-#include <vector>
 
 #include <nanobind/nanobind.h>
 #include <nanobind/stl/pair.h>
 
 #include <whirlwind/common/heap.hpp>
+#include <whirlwind/common/vector.hpp>
 #include <whirlwind/graph/csr_graph.hpp>
 #include <whirlwind/graph/dijkstra.hpp>
 #include <whirlwind/graph/rectangular_grid_graph.hpp>
@@ -75,7 +75,7 @@ template<class Distance, class Graph>
 void
 dijkstra(nb::module_& m, const std::string& name)
 {
-    dijkstra<Distance, Graph, std::vector>(m, name);
+    dijkstra<Distance, Graph, Vector>(m, name);
 }
 
 template<class Distance>

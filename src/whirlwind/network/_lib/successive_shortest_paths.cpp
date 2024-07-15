@@ -1,8 +1,8 @@
 #include <cstdint>
-#include <vector>
 
 #include <nanobind/nanobind.h>
 
+#include <whirlwind/common/vector.hpp>
 #include <whirlwind/graph/dial.hpp>
 #include <whirlwind/graph/dijkstra.hpp>
 #include <whirlwind/logging/null_logger.hpp>
@@ -56,7 +56,7 @@ template<class Graph, class Cost, class Dijkstra, class Logger, class Flow>
 void
 successive_shortest_paths(nb::module_& m)
 {
-    successive_shortest_paths<Graph, Cost, Dijkstra, Logger, Flow, std::vector>(m);
+    successive_shortest_paths<Graph, Cost, Dijkstra, Logger, Flow, Vector>(m);
 }
 
 template<class Graph, class Cost, class Dijkstra, class Logger>

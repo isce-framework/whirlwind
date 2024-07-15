@@ -2,12 +2,12 @@
 #include <span>
 #include <string>
 #include <utility>
-#include <vector>
 
 #include <nanobind/nanobind.h>
 #include <nanobind/ndarray.h>
 
 #include <whirlwind/common/type_traits.hpp>
+#include <whirlwind/common/vector.hpp>
 #include <whirlwind/network/network.hpp>
 #include <whirlwind/network/uncapacitated.hpp>
 #include <whirlwind/network/unit_capacity.hpp>
@@ -110,7 +110,7 @@ template<class Graph, class Cost, class Flow>
 void
 network(nb::module_& m, const std::string& name)
 {
-    network<Graph, Cost, Flow, std::vector>(m, name + "_vector");
+    network<Graph, Cost, Flow, Vector>(m, name + "_vector");
 }
 
 template<class Graph, class Cost>

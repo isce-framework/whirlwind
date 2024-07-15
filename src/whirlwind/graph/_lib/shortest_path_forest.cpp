@@ -1,11 +1,11 @@
 #include <cstdint>
 #include <string>
 #include <utility>
-#include <vector>
 
 #include <nanobind/nanobind.h>
 
 #include <whirlwind/common/type_traits.hpp>
+#include <whirlwind/common/vector.hpp>
 #include <whirlwind/graph/csr_graph.hpp>
 #include <whirlwind/graph/forest.hpp>
 #include <whirlwind/graph/rectangular_grid_graph.hpp>
@@ -81,7 +81,7 @@ template<class Distance, class Graph>
 void
 shortest_path_forest(nb::module_& m, const std::string& name)
 {
-    shortest_path_forest<Distance, Graph, std::vector>(m, name);
+    shortest_path_forest<Distance, Graph, Vector>(m, name);
 }
 
 template<class Distance>

@@ -1,10 +1,10 @@
 #include <cstdint>
 #include <utility>
-#include <vector>
 
 #include <nanobind/nanobind.h>
 
 #include <whirlwind/common/stddef.hpp>
+#include <whirlwind/common/vector.hpp>
 #include <whirlwind/graph/rectangular_grid_graph.hpp>
 #include <whirlwind/integrate_unwrapped_gradients.hpp>
 #include <whirlwind/network/network.hpp>
@@ -61,7 +61,7 @@ template<class T, class Graph, class Cost, class Flow>
 void
 integrate_unwrapped_gradients(nb::module_& m)
 {
-    integrate_unwrapped_gradients<T, Graph, Cost, Flow, std::vector>(m);
+    integrate_unwrapped_gradients<T, Graph, Cost, Flow, Vector>(m);
 }
 
 template<class T, class Graph, class Cost>

@@ -2,8 +2,8 @@ import numpy as np
 from numpy.typing import ArrayLike
 
 from ._cost import compute_carballo_costs
-from ._lib import residue as get_residues
 from ._lib import integrate_unwrapped_gradients
+from ._lib import residue as get_residues
 from .graph import RectangularGridGraph
 from .network import Network, primal_dual
 
