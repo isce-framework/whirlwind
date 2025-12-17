@@ -32,22 +32,24 @@ def calc_smooth_phase_gradients(igram):
 
 def _load_rgi(path: Path | str) -> RegularGridInterpolator:
     """Reconstruct RegularGridInterpolator from saved data."""
-    data = np.load(path, allow_pickle=True)
+    data = np.load(path, allow_pickle=False)
     return RegularGridInterpolator(
-        points=tuple(data['grid']),
-        values=data['values'],
-        method=str(data['method']),
-        bounds_error=bool(data['bounds_error']),
-        fill_value=float(data['fill_value']) if data['fill_value'] is not None else None,
+        points=tuple(data["grid"]),
+        values=data["values"],
+        method=str(data["method"]),
+        bounds_error=bool(data["bounds_error"]),
+        fill_value=float(data["fill_value"])
+        if data["fill_value"] is not None
+        else None,
     )
 
 
 def load_carballo_pdf_splines():
     """ """
-    files = importlib.resources.files(__package__)
-
-    spline_pdf0 = _load_rgi(files.joinpath("carballo-pdf-0-spline.npz"))
-    spline_pdf1 = _load_rgi(files.joinpath("carballo-pdf-1-spline.npz"))
+    with importlib.resources.path(__package__, "carballo-pdf-0-spline.npz") as p:
+        spline_pdf0 = _load_rgi(p)
+    with importlib.resources.path(__package__, "carballo-pdf-1-spline.npz") as p:
+        spline_pdf1 = _load_rgi(p)
 
     return spline_pdf0, spline_pdf1
 
