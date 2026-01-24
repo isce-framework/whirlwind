@@ -33,14 +33,14 @@ def calc_smooth_phase_gradients(igram):
 def _load_rgi(path: Path | str) -> RegularGridInterpolator:
     """Reconstruct RegularGridInterpolator from saved data."""
     data = np.load(path, allow_pickle=False)
+    grid = (data["grid_0"], data["grid_1"], data["grid_2"])
+    fill_value = float(data["fill_value"]) if data["fill_value"] is not None else None
     return RegularGridInterpolator(
-        points=tuple(data["grid"]),
+        points=grid,
         values=data["values"],
         method=str(data["method"]),
         bounds_error=bool(data["bounds_error"]),
-        fill_value=float(data["fill_value"])
-        if data["fill_value"] is not None
-        else None,
+        fill_value=fill_value,
     )
 
 
