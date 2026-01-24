@@ -1,8 +1,9 @@
 import importlib.resources
-import pickle
+from pathlib import Path
 
 import numpy as np
 import scipy.ndimage
+from scipy.interpolate import RegularGridInterpolator
 
 __all__ = [
     "calc_smooth_phase_gradients",
@@ -29,14 +30,26 @@ def calc_smooth_phase_gradients(igram):
     return phase_dy_smooth, phase_dx_smooth
 
 
+def _load_rgi(path: Path | str) -> RegularGridInterpolator:
+    """Reconstruct RegularGridInterpolator from saved data."""
+    data = np.load(path, allow_pickle=False)
+    grid = (data["grid_0"], data["grid_1"], data["grid_2"])
+    fill_value = float(data["fill_value"]) if data["fill_value"] is not None else None
+    return RegularGridInterpolator(
+        points=grid,
+        values=data["values"],
+        method=str(data["method"]),
+        bounds_error=bool(data["bounds_error"]),
+        fill_value=fill_value,
+    )
+
+
 def load_carballo_pdf_splines():
     """ """
-    files = importlib.resources.files(__package__)
-
-    with files.joinpath("carballo-pdf-0-spline.pkl").open("rb") as f:
-        spline_pdf0 = pickle.load(f)
-    with files.joinpath("carballo-pdf-1-spline.pkl").open("rb") as f:
-        spline_pdf1 = pickle.load(f)
+    with importlib.resources.path(__package__, "carballo-pdf-0-spline.npz") as p:
+        spline_pdf0 = _load_rgi(p)
+    with importlib.resources.path(__package__, "carballo-pdf-1-spline.npz") as p:
+        spline_pdf1 = _load_rgi(p)
 
     return spline_pdf0, spline_pdf1
 
